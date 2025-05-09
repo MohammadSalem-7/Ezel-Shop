@@ -1,0 +1,295 @@
+/* ✅ إزالة الهوامش وضبط الاتجاه */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    text-align: center;
+    color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100vh;
+    background: #0d0d0d;
+}
+
+/* ✅ فيديو الخلفية */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.5);
+}
+
+/* ✅ تصميم الهيدر */
+header {
+    background: rgba(20, 20, 20, 0.95);
+    padding: 15px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ زر الرجوع */
+.button {
+    background: #e50914;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: #b20710;
+}
+
+/* ✅ زر السلة */
+.cart-icon {
+    background: #ffcc00;
+    color: black;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.3s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.cart-icon:hover {
+    background: #e6b800;
+}
+
+/* ✅ زر تغيير العملة */
+#currency-selector {
+    background: #ffcc00;
+    color: black;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#currency-selector:hover {
+    background: #e6b800;
+}
+
+/* ✅ زر اكتشف المزيد */
+.more-btn {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffcc00;
+    color: black;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.more-btn:hover {
+    background: #e6b800;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* ✅ صفحة المنتجات */
+#products-container {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+#products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* ✅ تصميم المنتج */
+.product {
+    background: rgba(255, 204, 0, 0.1);
+    padding: 20px;
+    width: 260px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+    text-align: center;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 204, 0, 0.2);
+}
+
+.product h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.product p {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ✅ زر "أضف إلى السلة" */
+.product button {
+    background: #ffcc00;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.product button:hover {
+    background: #e6b800;
+    transform: scale(1.05);
+}
+
+/* ✅ تصميم السلة */
+.cart-container {
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.cart-item {
+    background: rgba(255, 204, 0, 0.1);
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.1);
+}
+
+.cart-item p {
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+/* ✅ زر الحذف */
+.remove-btn {
+    background: #e50914;
+    color: white;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.remove-btn:hover {
+    background: #b20710;
+}
+
+/* ✅ زر مسح السلة */
+.clear-cart {
+    background: #e50914;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.clear-cart:hover {
+    background: #b20710;
+}
+
+/* ✅ تحسين العرض على الجوال */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    #products {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product {
+        width: 90%;
+    }
+
+    .cart-item {
+        width: 80%;
+    }
+
+    button {
+        font-size: 18px;
+        width: 100%;
+    }
+}
+
+/* ✅ ضبط فيديو الخلفية */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* ✅ ضبط زر "اكتشف المزيد" في المنتصف */
+.more-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffcc00;
+    color: black;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.more-btn:hover {
+    background: #e6b800;
+    transform: translate(-50%, -50%) scale(1.1);
+}

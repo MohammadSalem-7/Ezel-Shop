@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+            font-family: 'Tajawal', sans-serif;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .login-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 350px;
+            margin: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            width: 95%;
+            padding: 12px;
+            background: linear-gradient(90deg, #8e44ad, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #8e44ad, #8e44ad);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>تسجيل الدخول</h2>
+        <input type="text" id="username" placeholder="اسم المستخدم">
+        <input type="password" id="password" placeholder="كلمة المرور">
+        <button onclick="login()">تسجيل الدخول</button>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username === "3li" && password === "admin123") {
+                localStorage.setItem("loggedInUser", "3li");
+                localStorage.setItem("role", "admin");
+                window.location.href = "index.html";
+            } else if (username.length > 0 && password.length > 0) {
+                localStorage.setItem("loggedInUser", username);
+                localStorage.setItem("role", "user");
+                window.location.href = "index.html";
+            } else {
+                alert("❌ يرجى إدخال بيانات صحيحة.");
+            }
+        }
+    </script>
+<p>لا تملك حساب؟ <a href="register.html" style="color: #8e44ad " >إنشاء حساب جديد</a></p>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+            margin: 0;
+            padding: 0;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 380px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .profile-container img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #f1c40f;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .profile-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-container h2 {
+            margin: 15px 0;
+            font-size: 24px;
+            color: #f1c40f;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(90deg, #e67e22, #f39c12);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        label.upload-label {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #f39c12, #e67e22);
+    color: white;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+}
+
+label.upload-label:hover {
+    background: linear-gradient(90deg, #e67e22, #f39c12);
+    transform: translateY(-2px) scale(1.03);
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-container">
+        <img id="profileImage" src="default-profile.png" alt="صورة المستخدم" onclick="triggerUpload()">
+        <h2>مرحبا: <span id="usernameDisplay"></span> 👋</h2>
+
+        <!-- اختيار صورة -->
+        <input type="file" class="file-input" id="fileInput" accept="image/*">
+        <label class="upload-label" for="fileInput">📸 تغيير صورة البروفايل</label>
+
+        <button class="button back-btn" onclick="window.location.href='index.html'">🏠 العودة للصفحة الرئيسية</button>
+        <button class="button logout-btn" onclick="logout()">🚪 تسجيل الخروج</button>
+    </div>
+
+    <script>
+        function loadUserProfile() {
+            let loggedInUser = localStorage.getItem("loggedInUser");
+
+            if (!loggedInUser) {
+                alert("🚫 يجب تسجيل الدخول أولاً.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let user = users.find(u => u.username === loggedInUser);
+
+            if (user) {
+                document.getElementById("usernameDisplay").innerText = user.username;
+                document.getElementById("profileImage").src = user.profilePic || "default-profile.png";
+            } else {
+                alert("❗ حسابك غير موجود، يرجى تسجيل الدخول من جديد.");
+                window.location.href = "login.html";
+            }
+        }
+
+        // تغيير صورة البروفايل
+        document.getElementById("fileInput").addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const base64Image = event.target.result;
+
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+                let loggedInUser = localStorage.getItem("loggedInUser");
+                let index = users.findIndex(u => u.username === loggedInUser);
+                if (index !== -1) {
+                    users[index].profilePic = base64Image;
+                    localStorage.setItem("users", JSON.stringify(users));
+                    document.getElementById("profileImage").src = base64Image;
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("role");
+            alert("🚪 تم تسجيل الخروج!");
+            window.location.href = "index.html";
+        }
+
+        function triggerUpload() {
+            document.getElementById("fileInput").click();
+        }
+
+        loadUserProfile();
+    </script>
+
+</body>
+
+</html>

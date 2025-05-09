@@ -1,0 +1,164 @@
+<html lang="ar"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتجر الإلكترونيEzel</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Tajawal", sans-serif;
+        direction: rtl;
+        text-align: center;
+        color: white;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -2;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+          to bottom right,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.3)
+        );
+        z-index: -1;
+      }
+
+      header {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.7);
+        padding: 30px 50px;
+        border-radius: 16px;
+        box-shadow: 0 5px 30px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        text-align: center;
+        max-width: 90%;
+      }
+
+      header h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #0077ff, #8e44ad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .buttons button {
+        background: linear-gradient(90deg, #0077ff, #9b59b6);
+        color: white;
+        padding: 14px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 15px rgba(142, 68, 173, 0.6);
+      }
+
+      .buttons button:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: linear-gradient(90deg, #9b59b6, #8e44ad);
+        box-shadow: 0 0 25px rgba(142, 68, 173, 0.9);
+      }
+
+      .cursor {
+        display: inline-block;
+        margin-left: 5px;
+        color: #9b59b6;
+        animation: blink 0.7s infinite;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay="" muted="" loop="" id="background-video">
+      <source src="background.mp4" type="video/mp4">
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+    <div class="overlay"></div>
+
+    <header>
+      <h1><span id="typed-text"></span>|مرحبا بك في متجرنا</h1>
+      <p>اكتشف أفضل المنتجات لدينا الآن!</p>
+      <div class="buttons">
+        <button onclick="window.location.href='products.html'">
+          اكتشف الآن
+        </button>
+        <button onclick="window.location.href='rule.html'">
+          📜 قوانين المتجر
+        </button>
+        <button onclick="window.location.href='tickets.html'">
+          🎫 فتح تذكرة دعم
+        </button>
+        <button id="adminPanelBtn"  onclick="window.location.href='admin_panel.html'">
+          ⚙️ لوحة الأدمن
+        </button>
+        <button id="loginBtn" onclick="window.location.href='login.html'">
+          تسجيل الدخول
+        </button>
+      </div>
+    </header>
+
+    <script>
+      const text = "مرحبًا بك في متجرنا";
+      const speed = 100;
+      let i = 0;
+
+   
+      window.onload = function() {
+        typeWriter();
+
+        let loginBtn = document.getElementById("loginBtn");
+        let adminBtn = document.getElementById("adminPanelBtn");
+
+        let loggedInUser = localStorage.getItem("loggedInUser");
+        let role = localStorage.getItem("role");
+
+        if (loggedInUser) {
+          if (loginBtn) loginBtn.style.display = "none";
+          if (role === "admin" && adminBtn) {
+            adminBtn.style.display = "inline-block";
+          }
+        }
+      };
+    </script>
+  
+
+</body></html>

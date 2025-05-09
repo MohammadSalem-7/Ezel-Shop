@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الأدمن - تذاكر الدعم</title>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .ticket {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px auto;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+
+        .ticket p {
+            margin: 8px 0;
+        }
+
+        .actions button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .reply-btn {
+            background: #27ae60;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>🎟️ إدارة التذاكر</h2>
+    <div id="ticketsContainer"></div>
+
+    <script>
+        
+let role = localStorage.getItem("role");
+        if (role !== "admin") {
+            alert("🚫  غير مصرح لك بدخول هذه الصفحة مفكر حالك ادمن صح؟.");
+            window.location.href = "index.html";
+        }
+
+        let tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+
+        function renderTickets() {
+            let container = document.getElementById("ticketsContainer");
+            container.innerHTML = '';
+
+            tickets.forEach(ticket => {
+                container.innerHTML += `
+                    <div class="ticket">
+                        <p>👤 المرسل: ${ticket.user}</p>
+                        <p>💬 الرسالة: ${ticket.message}</p>
+                        <p>📌 الحالة: ${ticket.status}</p>
+                        ${ticket.reply ? `<p>💬 ردك السابق: ${ticket.reply}</p>` : ""}
+                        <div class="actions">
+                            ${ticket.status !== "مغلقة" ? `
+                                <button class="reply-btn" onclick="replyTicket(${ticket.id})">💬 رد</button>
+                                <button class="close-btn" onclick="closeTicket(${ticket.id})">✅ إغلاق</button>
+                            ` : `<p style="color: #2ecc71;">✅ مغلقة</p>`}
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (tickets.length === 0) {
+                container.innerHTML = "<p>لا توجد تذاكر حالياً.</p>";
+            }
+        }
+
+        function replyTicket(id) {
+            let reply = prompt("💬 اكتب ردك:");
+            if (reply) {
+                tickets = tickets.map(t => t.id === id ? { ...t, status: "تم الرد", reply: reply } : t);
+                localStorage.setItem("tickets", JSON.stringify(tickets));
+                alert("✅ تم إرسال الرد.");
+                renderTickets();
+            }
+        }
+
+        function closeTicket(id) {
+            tickets = tickets.map(t => t.id === id ? { ...t, status: "مغلقة" } : t);
+            localStorage.setItem("tickets", JSON.stringify(tickets));
+            renderTickets();
+        }
+
+        renderTickets();
+    </script>
+
+</body>
+
+</html>

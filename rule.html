@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>قوانين المتجر</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Tajawal", sans-serif;
+        direction: rtl;
+        text-align: center;
+        color: white;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* 🎥 خلفية الفيديو */
+      #background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        z-index: -2;
+      }
+
+      /* 🖤 تغطية فوق الفيديو */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+          to bottom right,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.3)
+        );
+        z-index: -1;
+      }
+
+      /* 🏆 الهيدر */
+      header {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 15px 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 30px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        max-width: 85%;
+        animation: fadeIn 1s ease-out;
+      }
+
+      header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #0077ff, #9b59b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* ✨ الحركات */
+      .rules-container {
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        animation: slideUp 1s ease-out;
+      }
+
+      .rule {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 12px 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        transition: 0.4s;
+        border: 1px solid rgba(155, 3, 104, 0.911);
+        backdrop-filter: blur(8px);
+      }
+
+      .rule:hover {
+        transform: translateY(-5px) scale(1.02);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .rule p {
+        font-size: 16px;
+        color: #0077ff;
+        margin: 0;
+      }
+
+      /* ✍️ تأثير الكتابة */
+      .cursor {
+        display: inline-block;
+        margin-left: 5px;
+        color: #9b59b6;
+        animation: blink 0.7s infinite;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* زر العودة */
+      .back-btn {
+        margin-top: 25px;
+        background: linear-gradient(90deg, #9b59b6, #9b59b6);
+        color: white;
+        padding: 10px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .back-btn:hover {
+        background: linear-gradient(90deg, #9b59b6, #9b59b6);
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 🎥 فيديو الخلفية -->
+    <video autoplay muted loop id="background-video">
+      <source src="background.mp4" type="video/mp4" />
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+    <div class="overlay"></div>
+
+    <!-- 🏆 الهيدر مع الكتابة المتحركة -->
+    <header>
+      <h1><span id="typed-text"></span><span class="cursor">|</span></h1>
+    </header>
+
+    <!-- ✅ القوانين -->
+    <div class="rules-container">
+      <div class="rule">
+        <p>1️⃣ احترام جميع العملاء وعدم الإساءة بأي شكل.</p>
+      </div>
+      <div class="rule"><p>2️⃣ يُمنع التلاعب بالأسعار أو تضليل العملاء.</p></div>
+      <div class="rule"><p>3️⃣ الالتزام بسياسات الشحن والتوصيل المعلنة.</p></div>
+      <div class="rule">
+        <p>4️⃣ يحق للإدارة تعديل أو تغيير القوانين في أي وقت.</p>
+      </div>
+      <div class="rule">
+        <p>5️⃣ التعامل يتم وفقًا لشروط الاستخدام وسياسة الخصوصية.</p>
+      </div>
+    </div>
+
+    <!-- زر رجوع -->
+    <button class="back-btn" onclick="goBack()">🔙 عودة للصفحة الرئيسية</button>
+
+    <!-- 🚀 سكربت -->
+    <script>
+      const text = " قوانين المتجر الإلكتروني";
+      const speed = 90;
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+          document.getElementById("typed-text").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+
+      function goBack() {
+        window.location.href = "index.html";
+      }
+
+      // بدء التأثير عند تحميل الصفحة
+      window.onload = function() {
+        typeWriter();
+      };
+    </script>
+  </body>
+</html>
